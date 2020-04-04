@@ -22,15 +22,18 @@ public class Question {
 
     private String content;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Answer> answerList = new ArrayList<>();
 
     @ManyToOne
     private Test test;
 
-    public Question(String content, List<Answer> answerList, Test test) {
+    public Question(String content) {
         this.content = content;
-        this.answerList = answerList;
-        this.test = test;
+    }
+
+    public void addAnswer(Answer answer) {
+        answer.setQuestion(this);
+        answerList.add(answer);
     }
 }

@@ -12,6 +12,7 @@ import quizapp.repository.QuestionRepository;
 import quizapp.repository.TestRepository;
 import quizapp.repository.UserRepository;
 
+import javax.management.QueryEval;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,27 +33,32 @@ public class SpringExampleData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user = new User("user1", "password", "email");
+        User user = new User("user2", "password", "email");
 
         Test test1 = new Test("test1", user);
+        Test test2 = new Test("test2", user);
 
         Answer answer1 = new Answer("answer1", true);
         Answer answer2 = new Answer("answer2", false);
-        List<Answer> answerList = new ArrayList<>();
-        answerList.add(answer1);
-        answerList.add(answer2);
+        Answer answer3 = new Answer("answer3", true);
+        Answer answer4 = new Answer("answer4", false);
 
-        Question question1 = new Question("contentOfQuestion1", answerList, test1);
-        Question question2 = new Question("contentOfQuestion2", answerList, test1);
+        Question question = new Question("contentOfQuestion1");
+        question.addAnswer(answer1);
+        question.addAnswer(answer2);
 
+        Question question1 = new Question("contentOfQuestion2");
+        question.addAnswer(answer3);
+        question.addAnswer(answer4);
+
+        test1.addQuestion(question);
         test1.addQuestion(question1);
-        test1.addQuestion(question2);
 
         user.addTest(test1);
+
         userRepository.save(user);
         testRepository.save(test1);
-        questionRepository.save(question1);
-        questionRepository.save(question2);
+        testRepository.save(test2);
         answerRepository.save(answer1);
         answerRepository.save(answer2);
     }

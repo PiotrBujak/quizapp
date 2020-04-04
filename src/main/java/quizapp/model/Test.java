@@ -22,7 +22,7 @@ public class Test {
 
     private String content;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Question> questionList = new ArrayList<>();
 
     @ManyToOne

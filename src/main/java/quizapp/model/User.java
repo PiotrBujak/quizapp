@@ -18,7 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    private Integer id;
 
     private String login;
 
@@ -26,7 +26,7 @@ public class User {
 
     private String email;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Test> testList = new ArrayList<>();
 
     public User(String login, String passord, String email) {
