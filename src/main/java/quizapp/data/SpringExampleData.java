@@ -7,6 +7,9 @@ import quizapp.model.Answer;
 import quizapp.model.Question;
 import quizapp.model.Test;
 import quizapp.model.User;
+import quizapp.repository.AnswerRepository;
+import quizapp.repository.QuestionRepository;
+import quizapp.repository.TestRepository;
 import quizapp.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -17,6 +20,15 @@ public class SpringExampleData implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TestRepository testRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
+    @Autowired
+    private AnswerRepository answerRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -38,7 +50,10 @@ public class SpringExampleData implements CommandLineRunner {
 
         user.addTest(test1);
         userRepository.save(user);
-
-
+        testRepository.save(test1);
+        questionRepository.save(question1);
+        questionRepository.save(question2);
+        answerRepository.save(answer1);
+        answerRepository.save(answer2);
     }
 }
