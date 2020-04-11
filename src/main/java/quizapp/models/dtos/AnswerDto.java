@@ -1,10 +1,10 @@
-package quizapp.model.dtos;
+package quizapp.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import quizapp.model.Question;
+import quizapp.models.Question;
 
 @Data
 @Builder

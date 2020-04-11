@@ -1,4 +1,4 @@
-package quizapp.model;
+package quizapp.models;
 
 import lombok.*;
 

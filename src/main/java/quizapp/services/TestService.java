@@ -3,10 +3,13 @@ package quizapp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import quizapp.assemblers.TestAssembler;
-import quizapp.model.Test;
-import quizapp.model.dtos.TestDto;
+import quizapp.models.Test;
+import quizapp.models.dtos.TestDto;
 import quizapp.repository.TestRepository;
 
+import java.text.Collator;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,11 +27,13 @@ public class TestService {
     }
 
     public List<TestDto> getTestsDto(){
-        return testRepository
+        List<TestDto> list = testRepository
                 .findAll()
                 .stream()
                 .map(testAssembler::map)
                 .collect(Collectors.toList());
+        Collections.sort(list, Comparator.comparing(TestDto::getContent));
+        return list;
     }
 
     public Test addTest(TestDto testDto){

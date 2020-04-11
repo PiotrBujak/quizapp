@@ -2,8 +2,8 @@ package quizapp.assemblers;
 
 import org.springframework.stereotype.Component;
 import quizapp.commons.Assembler;
-import quizapp.model.User;
-import quizapp.model.dtos.UserDto;
+import quizapp.models.User;
+import quizapp.models.dtos.UserDto;
 
 @Component
 public class UserAssembler implements Assembler<User, UserDto> {
@@ -15,8 +15,10 @@ public class UserAssembler implements Assembler<User, UserDto> {
                 .id(from.getId())
                 .login(from.getLogin())
                 .email(from.getEmail())
-                .passord(from.getPassord())
+                .password(from.getPassword())
+                .active(from.getActive())
                 .testList(from.getTestList())
+                .roles(from.getRoles())
                 .build();
     }
 
@@ -27,8 +29,10 @@ public class UserAssembler implements Assembler<User, UserDto> {
                 .id(to.getId())
                 .login(to.getLogin())
                 .email(to.getEmail())
-                .passord(to.getPassord())
+                .password(to.getPassword())
+                .active(to.getActive())
                 .testList(to.getTestList())
+                .roles(to.getRoles())
                 .build();
     }
 }

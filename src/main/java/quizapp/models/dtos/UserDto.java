@@ -1,13 +1,15 @@
-package quizapp.model.dtos;
+package quizapp.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import quizapp.model.Test;
+import quizapp.models.Role;
+import quizapp.models.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -19,9 +21,14 @@ public class UserDto {
 
     private String login;
 
-    private String passord;
+    private String password;
 
     private String email;
 
+    private int active;
+
     private List<Test> testList = new ArrayList<>();
+
+    private Set<Role> roles;
+
 }

@@ -1,11 +1,11 @@
-package quizapp.model.dtos;
+package quizapp.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import quizapp.model.Answer;
-import quizapp.model.Test;
+import quizapp.models.Question;
+import quizapp.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,13 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionDto {
+public class TestDto {
 
     private Integer id;
 
     private String content;
 
-    private List<Answer> answerList = new ArrayList<>();
+    private List<Question> questionList = new ArrayList<>();
 
-    private Test test;
+    private User user;
 }

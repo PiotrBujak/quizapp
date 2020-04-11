@@ -2,8 +2,8 @@ package quizapp.assemblers;
 
 import org.springframework.stereotype.Component;
 import quizapp.commons.Assembler;
-import quizapp.model.Question;
-import quizapp.model.dtos.QuestionDto;
+import quizapp.models.Question;
+import quizapp.models.dtos.QuestionDto;
 
 @Component
 public class QuestionAssembler implements Assembler<Question, QuestionDto> {

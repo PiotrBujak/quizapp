@@ -1,17 +1,22 @@
 package quizapp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import quizapp.assemblers.UserAssembler;
-import quizapp.model.User;
-import quizapp.model.dtos.UserDto;
+import quizapp.commons.security.CustomUserDetails;
+import quizapp.models.User;
+import quizapp.models.dtos.UserDto;
 import quizapp.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -19,11 +24,18 @@ public class UserService {
     @Autowired
     private UserAssembler userAssembler;
 
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        return Optional.of(userRepository.findUserByLogin(login)
+                .orElseThrow(() -> new UsernameNotFoundException("user not found!")))
+                .map(CustomUserDetails::new).get();
+    }
+
     public List<User> getUsers(){
         return userRepository.findAll();
     }
 
-    public List<UserDto> getTestsDto(){
+    public List<UserDto> getUsersDto(){
         return userRepository
                 .findAll()
                 .stream()
@@ -45,8 +57,10 @@ public class UserService {
                     user.setEmail(userDto.getEmail());
                     user.setId(userDto.getId());
                     user.setLogin(userDto.getLogin());
-                    user.setPassord(userDto.getPassord());
+                    user.setPassword(userDto.getPassword());
+                    user.setActive(userDto.getActive());
                     user.setTestList(userDto.getTestList());
+                    user.setRoles(userDto.getRoles());
                 });
     }
 }

@@ -3,8 +3,8 @@ package quizapp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import quizapp.assemblers.QuestionAssembler;
-import quizapp.model.Question;
-import quizapp.model.dtos.QuestionDto;
+import quizapp.models.Question;
+import quizapp.models.dtos.QuestionDto;
 import quizapp.repository.QuestionRepository;
 
 import java.util.List;
