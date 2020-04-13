@@ -2,7 +2,7 @@
 <html lang="en">
 <head th:replace="fragments/head :: head" xmlns:th="http://www.thymeleaf.org"></head>
 <body>
-<td><button onclick="location.href='/login'" type="button">log in</button></td>
+<button onclick="location.href='/login'" type="button">log in</button>
 <p th:text="${message}"></p>
 <div class="container">
     <div class="row">
@@ -19,7 +19,11 @@
                 <tr th:each="test : ${tests}">
                     <td th:text="${test.content}">
                     <td th:text="${test.user.login}">
-                    <td><button th:href="@{|/tests/${test.id}/solve|}" type="button">Solve Test</button></td>
+                    <td>
+                        <form th:action="@{|/tests/${test.id}/solve|}">
+                            <input type="submit" value="Solve test" />
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
