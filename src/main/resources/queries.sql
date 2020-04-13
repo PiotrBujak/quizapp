@@ -28,5 +28,5 @@ insert into questions (id, content, test_id) values (3, "pytanie3", 2);
 insert into questions (id, content, test_id) values (4, "pytanie4", 2);
 
 /*TESTS*/
-insert into tests (id, content, user_id) values (1, "test1", 1);
-insert into tests (id, content, user_id) values (2, "test2", 2);
+insert into tests (id, content, user_id, description) values (1, "test1", 1, "simple description of first test");
+insert into tests (id, content, user_id, description) values (2, "test2", 2, "simple desxription of second test");

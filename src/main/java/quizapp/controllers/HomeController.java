@@ -31,10 +31,4 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/tests/{id}/solve")
-    public String getTestPage(Model model){
-
-        return "test";
-    }
-
 }

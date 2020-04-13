@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import quizapp.assemblers.AnswerAssembler;
 import quizapp.models.Answer;
 import quizapp.models.dtos.AnswerDto;
+import quizapp.models.dtos.QuestionDto;
 import quizapp.repository.AnswerRepository;
 
 import java.util.List;
@@ -23,10 +24,11 @@ public class AnswerService {
         return answerRepository.findAll();
     }
 
-    public List<AnswerDto> getAnswersDto(){
+    public List<AnswerDto> getAnswersDtoByQuestion(Integer questionId){
         return answerRepository
                 .findAll()
                 .stream()
+                .filter(answer -> answer.getQuestion().getId().equals(questionId))
                 .map(answerAssembler::map)
                 .collect(Collectors.toList());
     }

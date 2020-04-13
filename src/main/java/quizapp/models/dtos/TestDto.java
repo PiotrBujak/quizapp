@@ -23,4 +23,6 @@ public class TestDto {
     private List<Question> questionList = new ArrayList<>();
 
     private User user;
+
+    private String description;
 }

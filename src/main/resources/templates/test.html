@@ -2,6 +2,76 @@
 <html lang="en">
 <head th:replace="fragments/head :: head" xmlns:th="http://www.thymeleaf.org"></head>
 <body>
-to test do rozwiazania
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-dark">
+                <tr>
+                    <th th:text="${test.content}"></th>
+                    <th th:text="'Question: ' + ${currentQuestion} + ' of ' + ${numberOfQuestions}"></th>
+                </tr>
+                <tr>
+                    <th th:text="${test.description}"></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th th:if="${question}"
+                        th:text="${question.content}"></th>
+                    <th>Select answer</th>
+                </tr>
+                <tr th:each="answer : ${answers}">
+                    <th th:text="${answer.content}"></th>
+                    <th>
+                        <div th:if="${checkedAnswer == answer.id}">
+                                <input type="radio" th:value="${answer.id}" name="appointedAnswer" checked="checked"/>
+                        </div>
+                        <div th:if="${checkedAnswer != answer.id}">
+                                <input type="radio" th:value="${answer.id}" name="appointedAnswer"/>
+                                <!--<input type="radio" value="dupa" name="appointedAnswer"/>-->
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <div th:if="${currentQuestion > 1}">
+                            <div th:with="result=${currentQuestion - 1}">
+                                <form th:action="@{|/tests/${test.id}/${result}|}">
+                                    <input type="submit" value="Previous" />
+                                </form>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div th:if="${currentQuestion < numberOfQuestions}">
+                            <div th:with="result=${currentQuestion + 1}">
+                                <form th:action="@{|/tests/${test.id}/${result}|}">
+                                    <input type="submit" value="Next" style="float: right;"/>
+                                </form>
+                            </div>
+                        </div>
+                        <div th:if="${currentQuestion == numberOfQuestions}">
+                            <form th:action="@{|/tests/${test.id}/finish|}">
+                                <input type="submit" value="Finish" style="float: right;"/>
+                            </form>
+                        </div>
+                    </th>
+                </tr>
+                    <!--<th>-->
+                        <!--<p class="text-left">-->
+                        <!--<form th:if=${question}-->
+                              <!--th:action="@{|/tests/${id}/continue|}" method="get">-->
+                            <!--<select name="correct">-->
+                                <!--<option value=1>True</option>-->
+                                <!--<option value="0">False</option>-->
+                            <!--</select>-->
+                            <!--<input type="submit" value="Następne">-->
+                        <!--</form>-->
+                        <!--</p>-->
+                    <!--</th>-->
+                <!--</tr>-->
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>

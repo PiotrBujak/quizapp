@@ -22,6 +22,8 @@ public class Test {
 
     private String content;
 
+    private String description;
+
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Question> questionList = new ArrayList<>();
 

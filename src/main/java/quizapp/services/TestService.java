@@ -7,7 +7,6 @@ import quizapp.models.Test;
 import quizapp.models.dtos.TestDto;
 import quizapp.repository.TestRepository;
 
-import java.text.Collator;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -34,6 +33,16 @@ public class TestService {
                 .collect(Collectors.toList());
         Collections.sort(list, Comparator.comparing(TestDto::getContent));
         return list;
+    }
+
+    public TestDto getTestDtoById(Integer id){
+        List<TestDto> testDtoList = getTestsDto();
+        for (TestDto testDto : testDtoList){
+            if (testDto.getId().equals(id)){
+                return testDto;
+            }
+        }
+        return null;
     }
 
     public Test addTest(TestDto testDto){

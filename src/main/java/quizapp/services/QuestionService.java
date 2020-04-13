@@ -23,10 +23,11 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
-    public List<QuestionDto> getQuestionsDto(){
+    public List<QuestionDto> getQuestionsDtoByTest(Integer testId){
         return questionRepository
                 .findAll()
                 .stream()
+                .filter(question -> question.getTest().getId().equals(testId))
                 .map(questionAssembler::map)
                 .collect(Collectors.toList());
     }
