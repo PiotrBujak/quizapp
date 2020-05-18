@@ -7,6 +7,7 @@ import quizapp.models.Question;
 import quizapp.models.dtos.QuestionDto;
 import quizapp.repository.QuestionRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,12 +25,15 @@ public class QuestionService {
     }
 
     public List<QuestionDto> getQuestionsDtoByTest(Integer testId){
-        return questionRepository
+        List<QuestionDto> questionDtoList = questionRepository
                 .findAll()
                 .stream()
                 .filter(question -> question.getTest().getId().equals(testId))
                 .map(questionAssembler::map)
                 .collect(Collectors.toList());
+
+        questionDtoList.sort(Comparator.comparingInt(QuestionDto::getId).reversed());
+        return questionDtoList;
     }
 
     public Question addQuestion(QuestionDto questionDto){

@@ -9,9 +9,13 @@
             <table class="table table-dark">
                 <thead>
                 <tr>
-                    <th><button onclick="location.href='/login'" type="button">log in</button></th>
-                    <th><a th:text="${message}"></a></th>
-                    <th><button onclick="location.href='/create'" type="button">Create Test</button></th>
+                    <th>
+                        <button onclick="location.href='/login'" type="button">log in</button>
+                    </th>
+                    <th><a th:text="'Logged in as: ' + ${message}"></a></th>
+                    <th>
+                        <button onclick="location.href='/create'" type="button">Create Test</button>
+                    </th>
                 </tr>
                 </thead>
             </table>
@@ -41,7 +45,7 @@
                     <td th:text="${test.description}">
                     <td>
                         <form th:action="@{|/tests/${test.id}/1|}">
-                            <input type="submit" value="Solve test" />
+                            <input type="submit" value="Solve test" th:disabled="${message} == 'anonymousUser'"/>
                         </form>
                     </td>
                 </tr>

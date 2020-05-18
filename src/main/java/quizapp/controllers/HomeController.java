@@ -19,15 +19,15 @@ public class HomeController {
     private TestService testService;
 
     @GetMapping("/")
-    public String getHomePage(Model model){
+    public String getHomePage(Model model) {
         SecurityContext context = SecurityContextHolder.getContext();
-        model.addAttribute("message", "logged in as: " + context.getAuthentication().getName());
+        model.addAttribute("message", context.getAuthentication().getName());
         model.addAttribute("tests", testService.getTestsDto());
         return "index";
     }
 
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage() {
         return "login";
     }
 

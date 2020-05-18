@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResolvedTestDto {
 
-    private long id;
-
     private Integer userId;
 
     private Integer testId;

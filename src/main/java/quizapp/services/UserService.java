@@ -43,6 +43,12 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    public UserDto getUserDtoByName(String userName){
+         return userRepository.findUserByLogin(userName)
+                 .map(userAssembler::map)
+                 .orElseThrow(() -> new UsernameNotFoundException("user not found!"));
+    }
+
     public User addUser(UserDto userDto){
         return userRepository.save(userAssembler.revers(userDto));
     }

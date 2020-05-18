@@ -6,6 +6,16 @@
     <div class="row">
         <div class="col-sm-12">
             <table class="table table-dark">
+                <div th:if="${currentQuestion == numberOfQuestions}">
+                    <div th:with="result=${currentQuestion + 1}">
+                        <form th:action="@{|/tests/${test.id}/finish|}" method="get">
+                    </div>
+                </div>
+                <div th:if="${currentQuestion < numberOfQuestions}">
+                    <div th:with="result=${currentQuestion + 1}">
+                        <form th:action="@{|/tests/${test.id}/${result}|}" method="get">
+                    </div>
+                </div>
                 <tr>
                     <th th:text="${test.content}"></th>
                     <th th:text="'Question: ' + ${currentQuestion} + ' of ' + ${numberOfQuestions}"></th>
@@ -22,53 +32,27 @@
                 <tr th:each="answer : ${answers}">
                     <th th:text="${answer.content}"></th>
                     <th>
-                        <div th:if="${checkedAnswer == answer.id}">
-                                <input type="radio" th:value="${answer.id}" name="appointedAnswer" checked="checked"/>
-                        </div>
-                        <div th:if="${checkedAnswer != answer.id}">
-                                <input type="radio" th:value="${answer.id}" name="appointedAnswer"/>
-                                <!--<input type="radio" value="dupa" name="appointedAnswer"/>-->
-                        </div>
+                        <input type="radio" th:value="${answer.id}" th:name="appointedAnswer" th:id="appointedAnswer"/>
                     </th>
                 </tr>
                 <tr>
-                    <th>
-                        <div th:if="${currentQuestion > 1}">
-                            <div th:with="result=${currentQuestion - 1}">
-                                <form th:action="@{|/tests/${test.id}/${result}|}">
-                                    <input type="submit" value="Previous" />
-                                </form>
-                            </div>
-                        </div>
-                    </th>
+                    <th></th>
                     <th>
                         <div th:if="${currentQuestion < numberOfQuestions}">
                             <div th:with="result=${currentQuestion + 1}">
-                                <form th:action="@{|/tests/${test.id}/${result}|}">
+                                <form th:action="@{|/tests/${test.id}/${result}|}" method="get">
                                     <input type="submit" value="Next" style="float: right;"/>
                                 </form>
                             </div>
                         </div>
                         <div th:if="${currentQuestion == numberOfQuestions}">
-                            <form th:action="@{|/tests/${test.id}/finish|}">
+                            <form th:action="@{|/tests/${test.id}/finish|}" method="get">
                                 <input type="submit" value="Finish" style="float: right;"/>
                             </form>
                         </div>
                     </th>
                 </tr>
-                    <!--<th>-->
-                        <!--<p class="text-left">-->
-                        <!--<form th:if=${question}-->
-                              <!--th:action="@{|/tests/${id}/continue|}" method="get">-->
-                            <!--<select name="correct">-->
-                                <!--<option value=1>True</option>-->
-                                <!--<option value="0">False</option>-->
-                            <!--</select>-->
-                            <!--<input type="submit" value="Następne">-->
-                        <!--</form>-->
-                        <!--</p>-->
-                    <!--</th>-->
-                <!--</tr>-->
+                </form>
             </table>
         </div>
     </div>
