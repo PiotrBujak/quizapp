@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import quizapp.models.dtos.AnswerDto;
-import quizapp.models.dtos.QuestionDto;
-import quizapp.models.dtos.ResolvedTestDto;
-import quizapp.models.dtos.UserDto;
+import quizapp.assemblers.UserAssembler;
+import quizapp.models.dtos.*;
 import quizapp.services.*;
 
 import java.util.HashMap;
@@ -41,6 +39,9 @@ public class TestController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserAssembler userAssembler;
 
     @GetMapping("/tests/{id}/{questionNumber}")
     public String solve(@PathVariable Integer id,
@@ -70,7 +71,7 @@ public class TestController {
     }
 
     @GetMapping("/create")
-    public String create(ModelMap modelMap) {
+    public String create() {
         return "create";
     }
 

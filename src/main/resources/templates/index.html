@@ -14,7 +14,9 @@
                     </th>
                     <th><a th:text="'Logged in as: ' + ${message}"></a></th>
                     <th>
-                        <button onclick="location.href='/create'" type="button">Create Test</button>
+                        <button onclick="location.href='/create'" type="button"
+                                <!--th:disabled="${message} == 'anonymousUser'"-->
+                        >Create Test</button>
                     </th>
                 </tr>
                 </thead>

@@ -8,6 +8,7 @@ import quizapp.models.dtos.AnswerDto;
 import quizapp.models.dtos.QuestionDto;
 import quizapp.repository.AnswerRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,20 @@ public class AnswerService {
         return answerRepository.findById(answerId)
                 .map(answerAssembler::map)
                 .orElse(null);
+    }
+
+    public List<Answer> createAnswerDtoList(List<String> answerContentList, String correct) {
+        List<Answer> answersList = new ArrayList<>();
+        for (String answer : answerContentList)
+            if (answer != null) {
+                AnswerDto answerDto = new AnswerDto();
+                answerDto.setContent(answer);
+                answersList.add(answerAssembler.revers(answerDto));
+            }
+        if (correct != null) {
+            answersList.get(Integer.valueOf(correct)).setCorrect(true);
+        }
+        return answersList;
     }
 
     public Answer addAnswer(AnswerDto answerDto) {

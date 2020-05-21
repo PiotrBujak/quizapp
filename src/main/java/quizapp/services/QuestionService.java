@@ -3,8 +3,11 @@ package quizapp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import quizapp.assemblers.QuestionAssembler;
+import quizapp.assemblers.TestAssembler;
+import quizapp.models.Answer;
 import quizapp.models.Question;
 import quizapp.models.dtos.QuestionDto;
+import quizapp.models.dtos.TestDto;
 import quizapp.repository.QuestionRepository;
 
 import java.util.Comparator;
@@ -20,6 +23,9 @@ public class QuestionService {
     @Autowired
     private QuestionAssembler questionAssembler;
 
+    @Autowired
+    private TestAssembler testAssembler;
+
     public List<Question> getQuestion(){
         return questionRepository.findAll();
     }
@@ -34,6 +40,14 @@ public class QuestionService {
 
         questionDtoList.sort(Comparator.comparingInt(QuestionDto::getId).reversed());
         return questionDtoList;
+    }
+
+    public QuestionDto createQuestionDto(List<Answer> answerList, String question, TestDto testDto){
+        QuestionDto questionDto = new QuestionDto();
+        questionDto.setContent(question);
+//        questionDto.setAnswerList(answerList);
+        questionDto.setTest(testAssembler.revers(testDto));
+        return questionDto;
     }
 
     public Question addQuestion(QuestionDto questionDto){
