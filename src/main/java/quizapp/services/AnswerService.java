@@ -47,12 +47,13 @@ public class AnswerService {
     }
 
     public List<AnswerDto> createAnswerDtoList(List<String> answerContentList, String correct, QuestionDto questionDto) {
+        Question question = questionAssembler.revers(questionDto);
         List<AnswerDto> answersList = new ArrayList<>();
         for (String answer : answerContentList) {
             if (!StringUtils.isEmpty(answer)) {
                 AnswerDto answerDto = new AnswerDto();
                 answerDto.setContent(answer);
-                answerDto.setQuestion(questionAssembler.revers(questionDto));
+                answerDto.setQuestion(question);
                 answersList.add(answerDto);
             }
         }
@@ -68,7 +69,6 @@ public class AnswerService {
             if (!StringUtils.isEmpty(answer)) {
                 AnswerDto answerDto = new AnswerDto();
                 answerDto.setContent(answer);
-
                 answersList.add(answerAssembler.revers(answerDto));
             }
         }

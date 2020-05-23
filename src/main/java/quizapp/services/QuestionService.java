@@ -45,10 +45,6 @@ public class QuestionService {
     public QuestionDto createQuestionDto(List<Answer> answerList, String question, TestDto testDto){
         QuestionDto questionDto = new QuestionDto();
         questionDto.setContent(question);
-//        for (Answer answer : answerList) {
-//            answer.setQuestion(questionAssembler.revers(questionDto));
-//        }
-//        questionDto.setAnswerList(answerList);
         questionDto.setTest(testAssembler.revers(testDto));
         return questionDto;
     }
@@ -71,7 +67,6 @@ public class QuestionService {
         questionRepository.findById(questionDto.getId())
                 .ifPresent(question -> {
                     question.setTest(questionDto.getTest());
-//                    question.setAnswerList(questionDto.getAnswerList());
                     question.setContent(questionDto.getContent());
                     question.setId(questionDto.getId());
                 });

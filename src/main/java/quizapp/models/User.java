@@ -3,8 +3,6 @@ package quizapp.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -42,7 +40,6 @@ public class User {
         this.password = user.getPassword();
         this.active = user.getActive();
         this.email = user.getEmail();
-//        this.testList = user.getTestList();
         this.roles = user.getRoles();
     }
 }

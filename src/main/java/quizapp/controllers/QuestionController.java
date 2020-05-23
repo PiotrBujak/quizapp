@@ -8,13 +8,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import quizapp.assemblers.QuestionAssembler;
 import quizapp.assemblers.UserAssembler;
 import quizapp.models.dtos.AnswerDto;
 import quizapp.models.dtos.QuestionDto;
 import quizapp.models.dtos.TestDto;
 import quizapp.models.dtos.UserDto;
-import quizapp.repository.TestRepository;
 import quizapp.services.AnswerService;
 import quizapp.services.QuestionService;
 import quizapp.services.TestService;
@@ -37,9 +35,6 @@ public class QuestionController {
     private UserAssembler userAssembler;
 
     @Autowired
-    private QuestionAssembler questionAssembler;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
@@ -50,9 +45,6 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
-
-    @Autowired
-    private TestRepository testRepository;
 
     @GetMapping("/addQuestion")
     public String addQuestion(@RequestParam(value = "content", required = false) String content,
