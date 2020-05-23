@@ -33,6 +33,7 @@ import java.util.List;
 public class QuestionController {
     TestDto testDto = new TestDto();
     List<QuestionDto> questionList = new ArrayList<>();
+    List<AnswerDto> answerList = new ArrayList<>();
     UserDto userDto = new UserDto();
 
     @Autowired
@@ -57,9 +58,10 @@ public class QuestionController {
     public String addQuestion(@RequestParam(value = "content", required = false) String content,
                               @RequestParam(value = "description", required = false) String description,
                               ModelMap modelMap) {
+        clearData();
+        userDto = userService.getUserDtoByName(SecurityContextHolder.getContext().getAuthentication().getName());
         testDto.setContent(content);
         testDto.setDescription(description);
-        userDto = userService.getUserDtoByName(SecurityContextHolder.getContext().getAuthentication().getName());
         modelMap.put("test", testDto.getContent());
         modelMap.put("questionListSize", questionList.size());
         return "addQuestion";
@@ -75,13 +77,16 @@ public class QuestionController {
                                           @RequestParam(value = "correct", required = false) String correct,
                                           @RequestParam(value = "finish", required = false) String finish,
                                           ModelMap modelMap) {
-
-        questionList.add(questionService.createQuestionDto(
-                answerService.createAnswerDtoList(Arrays.asList(answer1, answer2, answer3, answer4), correct),
+        QuestionDto questionDto = questionService.createQuestionDto(
+                answerService.createAnswerList(Arrays.asList(answer1, answer2, answer3, answer4), correct),
                 question,
-                testDto));
+                testDto);
+        answerList.addAll(answerService.createAnswerDtoList(Arrays.asList(answer1, answer2, answer3, answer4), correct));
+        questionList.add(questionDto);
         modelMap.put("test", testDto.getContent());
         if (Boolean.valueOf(finish)){
+            answerService.saveAnswerList(answerList);
+            questionService.saveQuestionDtoList(questionList);
             testService.createTestDto(testDto, questionList, userDto);
             clearData();
             return "index";
@@ -89,26 +94,9 @@ public class QuestionController {
         return "addQuestion";
     }
 
-    @GetMapping("/finish")
-    public String finishCreatingTest(@RequestParam(value = "question", required = false) String question,
-                                     @RequestParam(value = "answer1", required = false) String answer1,
-                                     @RequestParam(value = "answer2", required = false) String answer2,
-                                     @RequestParam(value = "answer3", required = false) String answer3,
-                                     @RequestParam(value = "answer4", required = false) String answer4,
-                                     @RequestParam(value = "correct", required = false) String correct,
-                                     ModelMap modelMap){
-        questionList.add(questionService.createQuestionDto(
-                answerService.createAnswerDtoList(Arrays.asList(answer1, answer2, answer3, answer4), correct),
-                question,
-                testDto));
-        testService.createTestDto(testDto, questionList, userDto);
-        clearData();
-        return "index";
-    }
-
-
     private void clearData() {
         questionList.clear();
+        answerList.clear();
         testDto = new TestDto();
         userDto = new UserDto();
     }

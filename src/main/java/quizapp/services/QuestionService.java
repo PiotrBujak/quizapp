@@ -45,9 +45,18 @@ public class QuestionService {
     public QuestionDto createQuestionDto(List<Answer> answerList, String question, TestDto testDto){
         QuestionDto questionDto = new QuestionDto();
         questionDto.setContent(question);
-//        questionDto.setAnswerList(answerList);
+//        for (Answer answer : answerList) {
+//            answer.setQuestion(questionAssembler.revers(questionDto));
+//        }
+        questionDto.setAnswerList(answerList);
         questionDto.setTest(testAssembler.revers(testDto));
         return questionDto;
+    }
+
+    public void saveQuestionDtoList(List<QuestionDto> questionDtos){
+        for (QuestionDto questionDto : questionDtos){
+            questionRepository.save(questionAssembler.revers(questionDto));
+        }
     }
 
     public Question addQuestion(QuestionDto questionDto){

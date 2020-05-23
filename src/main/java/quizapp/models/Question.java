@@ -25,7 +25,7 @@ public class Question {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Answer> answerList = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Test test;
 
     public Question(String content) {

@@ -22,7 +22,7 @@ public class Answer {
 
     private boolean correct;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Question question;
 
     public Answer(String content, boolean correct) {

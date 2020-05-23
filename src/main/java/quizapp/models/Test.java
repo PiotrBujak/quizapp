@@ -27,7 +27,7 @@ public class Test {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Question> questionList = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private User user;
 
     public void addQuestion(Question question) {
