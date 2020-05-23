@@ -53,19 +53,9 @@ public class TestService {
                 .orElse(null);
     }
 
-    public void createTestDto(TestDto testDto, List<QuestionDto> questionList, UserDto userDto){
-        testDto.setQuestionList(questionList.
-                stream()
-                .map(rekord -> questionAssembler.revers(rekord))
-                .collect(Collectors.toList()));
+    public void saveTestDto(TestDto testDto, UserDto userDto){
         testDto.setUser(userAssembler.revers(userDto));
-        addTest(testDto);
-    }
-
-
-    public Test addTest(TestDto testDto){
-        Test test = testAssembler.revers(testDto);
-        return testRepository.save(test);
+        testRepository.saveAndFlush(testAssembler.revers(testDto));
     }
 
     public void deleteTest(Integer id){
@@ -78,7 +68,7 @@ public class TestService {
                     test.setUser(testDto.getUser());
                     test.setContent(testDto.getContent());
                     test.setId(testDto.getId());
-                    test.setQuestionList(testDto.getQuestionList());
+//                    test.setQuestionList(testDto.getQuestionList());
                 });
     }
 }

@@ -15,7 +15,6 @@ public class TestAssembler implements Assembler<Test, TestDto> {
                 .id(from.getId())
                 .content(from.getContent())
                 .user(from.getUser())
-                .questionList(from.getQuestionList())
                 .description(from.getDescription())
                 .build();
     }
@@ -27,7 +26,6 @@ public class TestAssembler implements Assembler<Test, TestDto> {
                 .id(to.getId())
                 .content(to.getContent())
                 .user(to.getUser())
-                .questionList(to.getQuestionList())
                 .description(to.getDescription())
                 .build();
     }

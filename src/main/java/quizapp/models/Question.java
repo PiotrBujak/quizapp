@@ -22,9 +22,6 @@ public class Question {
 
     private String content;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    private List<Answer> answerList = new ArrayList<>();
-
     @ManyToOne(cascade = {CascadeType.ALL})
     private Test test;
 
@@ -32,8 +29,4 @@ public class Question {
         this.content = content;
     }
 
-    public void addAnswer(Answer answer) {
-        answer.setQuestion(this);
-        answerList.add(answer);
-    }
 }

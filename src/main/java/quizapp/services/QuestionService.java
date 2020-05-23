@@ -48,7 +48,7 @@ public class QuestionService {
 //        for (Answer answer : answerList) {
 //            answer.setQuestion(questionAssembler.revers(questionDto));
 //        }
-        questionDto.setAnswerList(answerList);
+//        questionDto.setAnswerList(answerList);
         questionDto.setTest(testAssembler.revers(testDto));
         return questionDto;
     }
@@ -71,7 +71,7 @@ public class QuestionService {
         questionRepository.findById(questionDto.getId())
                 .ifPresent(question -> {
                     question.setTest(questionDto.getTest());
-                    question.setAnswerList(questionDto.getAnswerList());
+//                    question.setAnswerList(questionDto.getAnswerList());
                     question.setContent(questionDto.getContent());
                     question.setId(questionDto.getId());
                 });

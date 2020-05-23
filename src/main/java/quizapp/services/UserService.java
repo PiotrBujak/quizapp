@@ -65,7 +65,7 @@ public class UserService implements UserDetailsService {
                     user.setLogin(userDto.getLogin());
                     user.setPassword(userDto.getPassword());
                     user.setActive(userDto.getActive());
-                    user.setTestList(userDto.getTestList());
+//                    user.setTestList(userDto.getTestList());
                     user.setRoles(userDto.getRoles());
                 });
     }

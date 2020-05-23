@@ -46,12 +46,13 @@ public class AnswerService {
                 .orElse(null);
     }
 
-    public List<AnswerDto> createAnswerDtoList(List<String> answerContentList, String correct) {
+    public List<AnswerDto> createAnswerDtoList(List<String> answerContentList, String correct, QuestionDto questionDto) {
         List<AnswerDto> answersList = new ArrayList<>();
         for (String answer : answerContentList) {
             if (!StringUtils.isEmpty(answer)) {
                 AnswerDto answerDto = new AnswerDto();
                 answerDto.setContent(answer);
+                answerDto.setQuestion(questionAssembler.revers(questionDto));
                 answersList.add(answerDto);
             }
         }
@@ -79,12 +80,8 @@ public class AnswerService {
 
     public void saveAnswerList(List<AnswerDto> answers) {
         for (AnswerDto answer : answers) {
-            addAnswer(answer);
+            answerRepository.save(answerAssembler.revers(answer));
         }
-    }
-
-    public Answer addAnswer(AnswerDto answerDto) {
-        return answerRepository.save(answerAssembler.revers(answerDto));
     }
 
     public void deleteAnswer(Integer id) {

@@ -17,7 +17,6 @@ public class UserAssembler implements Assembler<User, UserDto> {
                 .email(from.getEmail())
                 .password(from.getPassword())
                 .active(from.getActive())
-                .testList(from.getTestList())
                 .roles(from.getRoles())
                 .build();
     }
@@ -31,7 +30,6 @@ public class UserAssembler implements Assembler<User, UserDto> {
                 .email(to.getEmail())
                 .password(to.getPassword())
                 .active(to.getActive())
-                .testList(to.getTestList())
                 .roles(to.getRoles())
                 .build();
     }

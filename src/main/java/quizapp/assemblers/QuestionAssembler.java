@@ -15,7 +15,6 @@ public class QuestionAssembler implements Assembler<Question, QuestionDto> {
                 .id(from.getId())
                 .content(from.getContent())
                 .test(from.getTest())
-                .answerList(from.getAnswerList())
                 .build();
     }
 
@@ -26,7 +25,6 @@ public class QuestionAssembler implements Assembler<Question, QuestionDto> {
                 .id(to.getId())
                 .content(to.getContent())
                 .test(to.getTest())
-                .answerList(to.getAnswerList())
                 .build();
     }
 }

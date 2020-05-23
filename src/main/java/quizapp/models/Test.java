@@ -24,16 +24,8 @@ public class Test {
 
     private String description;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    private List<Question> questionList = new ArrayList<>();
-
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     private User user;
-
-    public void addQuestion(Question question) {
-        question.setTest(this);
-        questionList.add(question);
-    }
 
     public Test(String content, User user) {
         this.content = content;

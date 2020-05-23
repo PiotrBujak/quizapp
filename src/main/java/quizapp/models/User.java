@@ -29,9 +29,6 @@ public class User {
 
     private int active;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    private List<Test> testList = new ArrayList<>();
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
@@ -40,17 +37,12 @@ public class User {
     )
     private Set<Role> roles;
 
-    public void addTest(Test test) {
-        test.setUser(this);
-        testList.add(test);
-    }
-
     public User(User user){
         this.login = user.getLogin();
         this.password = user.getPassword();
         this.active = user.getActive();
         this.email = user.getEmail();
-        this.testList = user.getTestList();
+//        this.testList = user.getTestList();
         this.roles = user.getRoles();
     }
 }

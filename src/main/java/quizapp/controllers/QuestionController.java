@@ -8,16 +8,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import quizapp.assemblers.AnswerAssembler;
 import quizapp.assemblers.QuestionAssembler;
-import quizapp.assemblers.TestAssembler;
 import quizapp.assemblers.UserAssembler;
-import quizapp.models.Answer;
-import quizapp.models.Question;
 import quizapp.models.dtos.AnswerDto;
 import quizapp.models.dtos.QuestionDto;
 import quizapp.models.dtos.TestDto;
 import quizapp.models.dtos.UserDto;
+import quizapp.repository.TestRepository;
 import quizapp.services.AnswerService;
 import quizapp.services.QuestionService;
 import quizapp.services.TestService;
@@ -31,10 +28,10 @@ import java.util.List;
 @CrossOrigin
 @Scope(value = "session")
 public class QuestionController {
-    TestDto testDto = new TestDto();
-    List<QuestionDto> questionList = new ArrayList<>();
-    List<AnswerDto> answerList = new ArrayList<>();
-    UserDto userDto = new UserDto();
+    private TestDto testDto = new TestDto();
+    private List<QuestionDto> questionList = new ArrayList<>();
+    private List<AnswerDto> answerList = new ArrayList<>();
+    private UserDto userDto = new UserDto();
 
     @Autowired
     private UserAssembler userAssembler;
@@ -54,6 +51,9 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private TestRepository testRepository;
+
     @GetMapping("/addQuestion")
     public String addQuestion(@RequestParam(value = "content", required = false) String content,
                               @RequestParam(value = "description", required = false) String description,
@@ -62,6 +62,7 @@ public class QuestionController {
         userDto = userService.getUserDtoByName(SecurityContextHolder.getContext().getAuthentication().getName());
         testDto.setContent(content);
         testDto.setDescription(description);
+        testDto.setUser(userAssembler.revers(userDto));
         modelMap.put("test", testDto.getContent());
         modelMap.put("questionListSize", questionList.size());
         return "addQuestion";
@@ -81,14 +82,14 @@ public class QuestionController {
                 answerService.createAnswerList(Arrays.asList(answer1, answer2, answer3, answer4), correct),
                 question,
                 testDto);
-        answerList.addAll(answerService.createAnswerDtoList(Arrays.asList(answer1, answer2, answer3, answer4), correct));
+        answerList.addAll(answerService.createAnswerDtoList(Arrays.asList(answer1, answer2, answer3, answer4), correct, questionDto));
         questionList.add(questionDto);
         modelMap.put("test", testDto.getContent());
         if (Boolean.valueOf(finish)){
             answerService.saveAnswerList(answerList);
-            questionService.saveQuestionDtoList(questionList);
-            testService.createTestDto(testDto, questionList, userDto);
             clearData();
+            modelMap.addAttribute("message", SecurityContextHolder.getContext().getAuthentication().getName());
+            modelMap.addAttribute("tests", testService.getTestsDto());
             return "index";
         }
         return "addQuestion";
