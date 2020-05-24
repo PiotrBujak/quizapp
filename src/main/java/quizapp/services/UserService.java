@@ -31,11 +31,11 @@ public class UserService implements UserDetailsService {
                 .map(CustomUserDetails::new).get();
     }
 
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
 
-    public List<UserDto> getUsersDto(){
+    public List<UserDto> getUsersDto() {
         return userRepository
                 .findAll()
                 .stream()
@@ -43,21 +43,25 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    public UserDto getUserDtoByName(String userName){
-         return userRepository.findUserByLogin(userName)
-                 .map(userAssembler::map)
-                 .orElseThrow(() -> new UsernameNotFoundException("user not found!"));
+    public UserDto getUserDtoByName(String userName) {
+        return userRepository.findUserByLogin(userName)
+                .map(userAssembler::map)
+                .orElseThrow(() -> new UsernameNotFoundException("user not found!"));
     }
 
-    public User addUser(UserDto userDto){
+    public UserDto getUserDtoById(Integer id) {
+        return userAssembler.map(userRepository.getOne(id));
+    }
+
+    public User addUser(UserDto userDto) {
         return userRepository.save(userAssembler.revers(userDto));
     }
 
-    public void deleteUser(Integer id){
+    public void deleteUser(Integer id) {
         userRepository.deleteById(id);
     }
 
-    public void updateUser(UserDto userDto){
+    public void updateUser(UserDto userDto) {
         userRepository.findById(userDto.getId())
                 .ifPresent(user -> {
                     user.setEmail(userDto.getEmail());
@@ -65,7 +69,6 @@ public class UserService implements UserDetailsService {
                     user.setLogin(userDto.getLogin());
                     user.setPassword(userDto.getPassword());
                     user.setActive(userDto.getActive());
-//                    user.setTestList(userDto.getTestList());
                     user.setRoles(userDto.getRoles());
                 });
     }

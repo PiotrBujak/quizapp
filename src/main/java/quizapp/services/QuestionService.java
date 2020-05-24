@@ -26,11 +26,11 @@ public class QuestionService {
     @Autowired
     private TestAssembler testAssembler;
 
-    public List<Question> getQuestion(){
+    public List<Question> getQuestion() {
         return questionRepository.findAll();
     }
 
-    public List<QuestionDto> getQuestionsDtoByTest(Integer testId){
+    public List<QuestionDto> getQuestionsDtoByTest(Integer testId) {
         List<QuestionDto> questionDtoList = questionRepository
                 .findAll()
                 .stream()
@@ -42,28 +42,28 @@ public class QuestionService {
         return questionDtoList;
     }
 
-    public QuestionDto createQuestionDto(List<Answer> answerList, String question, TestDto testDto){
+    public QuestionDto createQuestionDto(List<Answer> answerList, String question, TestDto testDto) {
         QuestionDto questionDto = new QuestionDto();
         questionDto.setContent(question);
         questionDto.setTest(testAssembler.revers(testDto));
         return questionDto;
     }
 
-    public void saveQuestionDtoList(List<QuestionDto> questionDtos){
-        for (QuestionDto questionDto : questionDtos){
+    public void saveQuestionDtoList(List<QuestionDto> questionDtos) {
+        for (QuestionDto questionDto : questionDtos) {
             questionRepository.save(questionAssembler.revers(questionDto));
         }
     }
 
-    public Question addQuestion(QuestionDto questionDto){
+    public Question addQuestion(QuestionDto questionDto) {
         return questionRepository.save(questionAssembler.revers(questionDto));
     }
 
-    public void deleteQuestion(Integer id){
+    public void deleteQuestion(Integer id) {
         questionRepository.deleteById(id);
     }
 
-    public void updateQuestion(QuestionDto questionDto){
+    public void updateQuestion(QuestionDto questionDto) {
         questionRepository.findById(questionDto.getId())
                 .ifPresent(question -> {
                     question.setTest(questionDto.getTest());

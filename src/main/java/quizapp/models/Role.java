@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Table(name = "role")
 @Setter
 @Getter
@@ -23,7 +22,7 @@ public class Role {
     private String role;
 
     @JsonIgnore
-    @ManyToMany(mappedBy="roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
 
 }

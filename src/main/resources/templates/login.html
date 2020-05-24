@@ -2,38 +2,100 @@
 <html lang="en">
 <head th:replace="fragments/head :: head" xmlns:th="http://www.thymeleaf.org"></head>
 <body>
+<!--<div class="container">-->
+    <!--<div class="row">-->
+        <!--<div style="width: 200px">-->
+            <!--<div class="login-form">-->
+                <!--<form th:action="@{/signin}" method="post">-->
+                    <!--<h2 class="text-center">Sign in</h2>-->
+                    <!--<legend>Please enter your user name and password.</legend>-->
+                    <!--<div th:if="${message}" class="alert alert-error">-->
+                        <!--Invalid username and password.-->
+                    <!--</div>-->
+                    <!--<div th:if="${message}" class="alert alert-success">-->
+                        <!--You have been logged out.-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="fa fa-user"></i></span>-->
+                            <!--<input type="text" class="form-control" name="username" placeholder="Username"-->
+                                   <!--required="required"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="fa fa-lock"></i></span>-->
+                            <!--<input type="password" class="form-control" name="password" placeholder="Password"-->
+                                   <!--required="required"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<button type="submit" class="btn btn-danger login-btn btn-block">Sign in</button>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
 <div class="container">
     <div class="row">
-        <div style="width: 200px">
-            <div class="login-form">
-                <form th:action="@{/signin}" method="post">
-                    <h2 class="text-center">Sign in</h2>
-                    <legend>Please enter your user name and password.</legend>
-                    <div th:if="${message}" class="alert alert-error">
-                        Invalid username and password.
-                    </div>
-                    <div th:if="${message}" class="alert alert-success">
-                        You have been logged out.
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control" name="username" placeholder="Username"
-                                   required="required"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" name="password" placeholder="Password"
-                                   required="required"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-danger login-btn btn-block">Sign in</button>
-                    </div>
-                </form>
-            </div>
+        <div class="col-sm-12">
+            <table class="table table-dark">
+                <div class="login-form">
+                    <form th:action="@{/signin}" method="post">
+                        <thead>
+                        <tr>
+                            <th><h2 class="text-center">Sign in</h2></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>
+                                <legend>Please enter your user name and password.</legend>
+                            </th>
+                            <th>
+                                <div th:if="${message}" class="alert alert-error">
+                                    Invalid username and password.
+                                </div>
+                                <div th:if="${message}" class="alert alert-success">
+                                    You have been logged out.
+                                </div>
+                            </th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input type="text" class="form-control" name="username" placeholder="Username"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                        <input type="password" class="form-control" name="password"
+                                               placeholder="Password"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-danger login-btn btn-block">Sign in</button>
+                                </div>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </form>
+                </div>
+            </table>
         </div>
     </div>
 </div>

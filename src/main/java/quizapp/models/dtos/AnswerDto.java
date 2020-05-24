@@ -20,6 +20,4 @@ public class AnswerDto {
 
     private Question question;
 
-
-
 }

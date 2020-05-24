@@ -6,7 +6,6 @@ import quizapp.assemblers.QuestionAssembler;
 import quizapp.assemblers.TestAssembler;
 import quizapp.assemblers.UserAssembler;
 import quizapp.models.Test;
-import quizapp.models.dtos.QuestionDto;
 import quizapp.models.dtos.TestDto;
 import quizapp.models.dtos.UserDto;
 import quizapp.repository.TestRepository;
@@ -31,11 +30,11 @@ public class TestService {
     @Autowired
     private UserAssembler userAssembler;
 
-    public List<Test> getTests(){
+    public List<Test> getTests() {
         return testRepository.findAll();
     }
 
-    public List<TestDto> getTestsDto(){
+    public List<TestDto> getTestsDto() {
         List<TestDto> list = testRepository
                 .findAll()
                 .stream()
@@ -45,7 +44,7 @@ public class TestService {
         return list;
     }
 
-    public TestDto getTestDtoById(Integer id){
+    public TestDto getTestDtoById(Integer id) {
         return getTestsDto()
                 .stream()
                 .filter(test -> test.getId().equals(id))
@@ -53,22 +52,21 @@ public class TestService {
                 .orElse(null);
     }
 
-    public void saveTestDto(TestDto testDto, UserDto userDto){
+    public void saveTestDto(TestDto testDto, UserDto userDto) {
         testDto.setUser(userAssembler.revers(userDto));
         testRepository.saveAndFlush(testAssembler.revers(testDto));
     }
 
-    public void deleteTest(Integer id){
+    public void deleteTest(Integer id) {
         testRepository.deleteById(id);
     }
 
-    public void updateTest(TestDto testDto){
+    public void updateTest(TestDto testDto) {
         testRepository.findById(testDto.getId())
                 .ifPresent(test -> {
                     test.setUser(testDto.getUser());
                     test.setContent(testDto.getContent());
                     test.setId(testDto.getId());
-//                    test.setQuestionList(testDto.getQuestionList());
                 });
     }
 }

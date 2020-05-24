@@ -18,7 +18,7 @@ public class QuizappApplication {
     }
 
     @Bean
-    PasswordEncoder getPasswordEncoder(){
+    PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

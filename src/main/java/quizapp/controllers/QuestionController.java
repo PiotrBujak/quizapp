@@ -60,7 +60,6 @@ public class QuestionController {
         return "addQuestion";
     }
 
-
     @GetMapping("/continue")
     public String continueAddingQuestions(@RequestParam(value = "question", required = false) String question,
                                           @RequestParam(value = "answer1", required = false) String answer1,
@@ -77,7 +76,7 @@ public class QuestionController {
         answerList.addAll(answerService.createAnswerDtoList(Arrays.asList(answer1, answer2, answer3, answer4), correct, questionDto));
         questionList.add(questionDto);
         modelMap.put("test", testDto.getContent());
-        if (Boolean.valueOf(finish)){
+        if (Boolean.valueOf(finish)) {
             answerService.saveAnswerList(answerList);
             clearData();
             modelMap.addAttribute("message", SecurityContextHolder.getContext().getAuthentication().getName());

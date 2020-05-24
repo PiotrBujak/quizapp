@@ -2,10 +2,8 @@ package quizapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,17 +64,22 @@ public class TestController {
                          @RequestParam(value = "appointedAnswer", required = false) Integer appointedAnswer) {
 
         putCheckedAnswerToAppointedAnswers(questionService.getQuestionsDtoByTest(id).get(currentQuestion - 1).getId(), appointedAnswer);
-        createResolvedTestDto(id);
+        resolvedTestService.createResolvedTestDto(
+                id,
+                userService.getUserDtoByName(SecurityContextHolder.getContext().getAuthentication().getName()),
+                appointedAnswers);
+        appointedAnswers.clear();
         return "finish";
     }
 
-    @GetMapping("/create")
-    public String create() {
-        return "create";
-    }
-
-    @GetMapping("/resolved")
-    public String resolved(ModelMap modelMap) {
+    @GetMapping("/tests/{id}/resolved")
+    public String resolved(@PathVariable Integer id,
+                           ModelMap modelMap) {
+        modelMap.put("test", testService.getTestDtoById(id));
+        modelMap.put("resolvedTests", resolvedTestService.getScoreByTestIdUserId(id));
+        modelMap.put("possiblePoints", questionService.getQuestionsDtoByTest(id).size());
+        modelMap.addAttribute("message", SecurityContextHolder.getContext().getAuthentication().getName());
+        modelMap.addAttribute("tests", testService.getTestsDto());
         return "resolved";
     }
 
@@ -86,18 +89,4 @@ public class TestController {
         }
     }
 
-    private void createResolvedTestDto(Integer testId) {
-        UserDto userDto = userService.getUserDtoByName(SecurityContextHolder.getContext().getAuthentication().getName());
-        for (Integer question : appointedAnswers.keySet()) {
-            AnswerDto answerDto = answerService.getAnswerDtoById(question);
-            ResolvedTestDto resolvedTestDto = new ResolvedTestDto(
-                    userDto.getId(),
-                    testId,
-                    question,
-                    answerDto.getId(),
-                    answerDto.isCorrect());
-            resolvedTestService.addResolvedTest(resolvedTestDto);
-        }
-        appointedAnswers.clear();
-    }
 }

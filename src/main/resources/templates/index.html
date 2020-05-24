@@ -15,8 +15,8 @@
                     <th><a th:text="'Logged in as: ' + ${message}"></a></th>
                     <th>
                         <button onclick="location.href='/create'" type="button"
-                                <!--th:disabled="${message} == 'anonymousUser'"-->
-                        >Create Test</button>
+                                th:disabled="${message} == 'anonymousUser'">Create Test
+                        </button>
                     </th>
                 </tr>
                 </thead>
@@ -38,6 +38,7 @@
                     <th>Author</th>
                     <th>Description</th>
                     <th>Start Test</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,12 @@
                     <td>
                         <form th:action="@{|/tests/${test.id}/1|}">
                             <input type="submit" value="Solve test" th:disabled="${message} == 'anonymousUser'"/>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{|/tests/${test.id}/resolved|}" method="get">
+                            <input type="submit" value="Check the results"
+                                   th:disabled="${message} != ${test.user.login}" style="float: right;"/>
                         </form>
                     </td>
                 </tr>
